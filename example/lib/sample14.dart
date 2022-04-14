@@ -28,22 +28,6 @@ class _Sample14State extends State<Sample14> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Dynamic date range"),
-        actions: <Widget>[
-          IconButton(
-              icon: Icon(Icons.today),
-              onPressed: () {
-                setState(() {
-                  fromDate = DateTime(2019, 07, 20);
-                });
-              }),
-          IconButton(
-              icon: Icon(Icons.history),
-              onPressed: () {
-                setState(() {
-                  fromDate = DateTime(2019, 08, 1);
-                });
-              }),
-        ],
       ),
       body: Center(
         child: Container(
@@ -69,7 +53,7 @@ class _Sample14State extends State<Sample14> {
             },
             bubbleLabelDateTimeBuilder:
                 (DateTime value, BezierChartScale? scaleType) {
-              final newFormat = intl.DateFormat('EEE d');
+              final newFormat = intl.DateFormat('dd MMM yyyy HH:mm:ss');
               return "${newFormat.format(value)}\n";
             },
             series: [
@@ -91,16 +75,35 @@ class _Sample14State extends State<Sample14> {
                       value: 3235.9, xAxis: DateTime(2019, 9, 30)),
                 ],
               ),
+              BezierLine(
+                label: "Data2",
+                lineColor: Colors.orange,
+                onMissingValue: (dateTime) {
+                  return 1250.5;
+                },
+                data: <DataPoint<DateTime>>[
+                  DataPoint<DateTime>(
+                      value: 1500.9, xAxis: DateTime(2019, 9, 24)),
+                  DataPoint<DateTime>(
+                      value: 1600.5, xAxis: DateTime(2019, 9, 25)),
+                  DataPoint<DateTime>(
+                      value: 1700.21, xAxis: DateTime(2019, 9, 26)),
+                  DataPoint<DateTime>(
+                      value: 1800.5, xAxis: DateTime(2019, 9, 27)),
+                  DataPoint<DateTime>(
+                      value: 1900.9, xAxis: DateTime(2019, 9, 30)),
+                ],
+              ),
             ],
             config: BezierChartConfig(
               updatePositionOnTap: true,
               bubbleIndicatorValueFormat:
                   intl.NumberFormat("###,##0.00", "en_US"),
               verticalIndicatorStrokeWidth: 1.0,
-              verticalIndicatorColor: Colors.white30,
+              verticalIndicatorColor: Colors.green,
               showVerticalIndicator: true,
               verticalIndicatorFixedPosition: false,
-              backgroundColor: Colors.transparent,
+              backgroundColor: Colors.blueGrey,
               footerHeight: 40.0,
             ),
           ),
